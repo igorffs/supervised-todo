@@ -1,6 +1,10 @@
 defmodule Todo.List do
   use GenServer
 
+  def name(list) do
+    GenServer.call(list, :name)
+  end
+
   def items(list) do
     GenServer.call(list, :items)
   end
@@ -27,6 +31,10 @@ defmodule Todo.List do
 
   def handle_call(:items, _from, state) do
     {:reply, state.items, state}
+  end
+
+  def handle_call(:name, _from, state) do
+    {:reply, state.name, state}
   end
 
   def handle_cast({:add, item}, state) do
